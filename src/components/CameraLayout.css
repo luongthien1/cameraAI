@@ -2,6 +2,11 @@
   display: flex;
   height: 100vh;
   background: #1a1a1a;
+}
+
+.camera-content {
+  flex: 1;
+  display: flex;
   gap: 16px;
   padding: 16px;
 }
@@ -21,7 +26,7 @@
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .camera-layout {
+  .camera-content {
     flex-direction: column;
     gap: 12px;
     padding: 12px;
@@ -42,7 +47,7 @@
 }
 
 @media (max-width: 480px) {
-  .camera-layout {
+  .camera-content {
     padding: 8px;
     gap: 8px;
   }

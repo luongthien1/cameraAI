@@ -6,9 +6,10 @@ interface CameraFeedProps {
   id: string;
   title: string;
   isMain: boolean;
+  videoUrl?: string;
 }
 
-const CameraFeed: React.FC<CameraFeedProps> = ({ id, title, isMain }) => {
+const CameraFeed: React.FC<CameraFeedProps> = ({ id, title, isMain, videoUrl }) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -30,15 +31,28 @@ const CameraFeed: React.FC<CameraFeedProps> = ({ id, title, isMain }) => {
       </div>
       
       <div className="camera-content">
-        <div className="video-placeholder">
-          <div className="video-overlay">
-            {!isPlaying && (
-              <div className="paused-overlay">
-                <Play size={isMain ? 48 : 24} />
-              </div>
-            )}
+        {videoUrl ? (
+          <video
+            className="video-stream"
+            src={videoUrl}
+            autoPlay
+            muted
+            loop
+            playsInline
+            style={{ display: isPlaying ? 'block' : 'none' }}
+          />
+        ) : (
+          <div className="video-placeholder">
+            <div className="no-signal">No Signal</div>
           </div>
-        </div>
+        )}
+        {!isPlaying && videoUrl && (
+          <div className="video-overlay">
+            <div className="paused-overlay">
+              <Play size={isMain ? 48 : 24} />
+            </div>
+          </div>
+        )}
         
         <div className={`camera-controls ${isHovered ? 'visible' : ''}`}>
           <button 
